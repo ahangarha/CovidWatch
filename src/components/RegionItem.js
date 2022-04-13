@@ -1,9 +1,22 @@
+import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
-import React from 'react';
 
-function RegionItem({ region }) {
+function RegionItem({ region, index }) {
+  const classBefore = 'opacity-0 translate-y-4';
+  const classAfter = 'opacity-100';
+  const [classCurrect, setClassCurrent] = useState(classBefore);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setClassCurrent(classAfter);
+    }, index * 150);
+    return () => {
+      setClassCurrent(classBefore);
+    };
+  }, []);
+
   return (
-    <li className="flex items-center gap-3 px-2 py-4 odd:bg-pink-600 text-lg">
+    <li className={`${classCurrect} transition duration-300 flex items-center gap-3 px-2 py-4 odd:bg-pink-600 text-lg`}>
       <p className="grow">{region.name}</p>
       <span>
         {region.stat}
@@ -20,6 +33,7 @@ RegionItem.propTypes = {
     name: PropTypes.string.isRequired,
     stat: PropTypes.number.isRequired,
   }).isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default RegionItem;
