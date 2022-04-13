@@ -40,7 +40,7 @@ export const fetchAllData = (countryName) => (dispatch) => {
       let data = [];
       const regionsData = res.dates[todayDate].countries[camelCase(countryName)].regions;
 
-      regionsData.forEach(({ id, name, today_new_confirmed: stat = 0 }) => {
+      regionsData.forEach(({ id, name, today_new_confirmed: stat }) => {
         data.push({
           id,
           name,
@@ -48,8 +48,6 @@ export const fetchAllData = (countryName) => (dispatch) => {
         });
       });
 
-      // Only keep data from countries with stat
-      // data = data.filter((d) => d.stat > 0);
       // sort based on stat in reverse order
       data = data.sort((a, b) => b.stat - a.stat);
       dispatch(fetchDataSuccess(data));
