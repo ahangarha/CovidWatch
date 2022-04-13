@@ -26,9 +26,10 @@ function AllCountries() {
           Source: John Hopkins University
         </p>
       </div>
-      <div className="bg-pink-500 grow rounded-t-3xl border-t border-t-pink-600">
+      <div className="bg-pink-500 grow rounded-3xl border border-pink-600">
         <div className="p-2 text-center uppercase font-bold">Stat by countries</div>
         <CountriesList />
+        <div className="h-4" />
       </div>
     </main>
   );
