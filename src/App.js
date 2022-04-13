@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import AllCountries from './pages/AllCountries';
+import CountriesPage from './pages/CountriesPage';
 import CountryPage from './pages/CountryPage';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="min-h-screen bg-pink-400 text-white">
       <Header />
       <Routes>
-        <Route path="/" element={<AllCountries />} />
+        <Route path="/" element={<CountriesPage />} />
         <Route path="/countries/:countryName" element={<CountryPage />} />
         <Route
           path="*"

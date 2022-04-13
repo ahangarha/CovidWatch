@@ -1,18 +1,28 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function CountryTile() {
+function CountryTile({ data }) {
+  const { id, name, stat } = data;
   return (
     <Link
-      to="/"
+      to={`/countries/${id}`}
       className="flex flex-col justify-end aspect-square border border-pink-600 p-2 text-right"
     >
       <h2 className="font-bold text-lg uppercase">
-        Country Name
+        {name}
       </h2>
-      <p>135</p>
+      <p>{stat}</p>
     </Link>
   );
 }
+
+CountryTile.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    stat: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default CountryTile;
