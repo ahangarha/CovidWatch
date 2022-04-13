@@ -1,5 +1,5 @@
 import React from 'react';
-import CoutnriesList from '../components/CoutnriesList';
+import CountriesList from '../components/CountriesList';
 
 function AllCountries() {
   return (
@@ -8,7 +8,7 @@ function AllCountries() {
         Global Statistics
       </div>
       <div className="p-1">State by countries</div>
-      <CoutnriesList />
+      <CountriesList />
     </main>
   );
 }
