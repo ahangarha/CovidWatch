@@ -29,10 +29,11 @@ function CoutnriesList() {
 
       {status === 'fetched' && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {data.map((countryData) => (
+          {data.map((countryData, index) => (
             <CountryTile
               key={countryData.id}
               data={countryData}
+              index={index}
             />
           ))}
         </div>

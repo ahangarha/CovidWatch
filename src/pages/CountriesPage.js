@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CountriesList from '../components/CountriesList';
 import { getMapUrl } from '../modules/mapUtils';
 
 function AllCountries() {
   const imageUrl = getMapUrl('world');
+  const classBefore = 'opacity-0 translate-y-8';
+  const classAfter = 'opacity-100';
+  const [classCurrect, setClassCurrent] = useState(classBefore);
+
+  useEffect(() => {
+    setClassCurrent(classAfter);
+    return () => {
+      setClassCurrent(classBefore);
+    };
+  }, []);
 
   return (
-    <main className="container mx-auto flex flex-col grow">
+    <main className={`container mx-auto flex flex-col grow transition-all duration-500 ${classCurrect}`}>
       <div className="h-48 md:h-64 grid place-content-center relative text-center">
         <div
           className="absolute inset-0 z-0 opacity-10"
