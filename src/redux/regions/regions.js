@@ -1,6 +1,7 @@
 const FETCH_DATA_REQUEST = 'covidWatch/regions/FETCH_DATA_REQUEST';
 const FETCH_DATA_SUCCESS = 'covidWatch/regions/FETCH_DATA_SUCCESS';
 const FETCH_DATA_FAILURE = 'covidWatch/regions/FETCH_DATA_FAILURE';
+const RESET_STATE = 'covidWatch/regions/RESET_STATE';
 
 export const fetchDataRequest = () => ({
   type: FETCH_DATA_REQUEST,
@@ -15,6 +16,10 @@ export const fetchDataSuccess = (data) => ({
 
 export const fetchDataFailure = () => ({
   type: FETCH_DATA_FAILURE,
+});
+
+export const resetRegionsState = () => ({
+  type: RESET_STATE,
 });
 
 const camelCase = (str) => {
@@ -68,6 +73,8 @@ export default function reducer(state = initialState, action) {
       return { data: action.payload.data, status: 'fetched' };
     case FETCH_DATA_FAILURE:
       return { ...state, status: 'failed' };
+    case RESET_STATE:
+      return initialState;
     default:
       return state;
   }

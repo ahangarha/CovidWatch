@@ -1,7 +1,7 @@
 import { PropTypes } from 'prop-types';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllData } from '../redux/regions/regions';
+import { fetchAllData, resetRegionsState } from '../redux/regions/regions';
 import LoadingSpinner from './LoadingSpinner';
 
 function RegionList({ countryName }) {
@@ -11,6 +11,9 @@ function RegionList({ countryName }) {
 
   useEffect(() => {
     dispatch(fetchAllData(countryName));
+
+    // reset regions state on unmount
+    return () => dispatch(resetRegionsState());
   }, []);
 
   return (
