@@ -26,6 +26,7 @@ export const resetRegionsState = () => ({
 });
 
 const camelCase = (str) => {
+  if (str === 'us') return 'US';
   const strArr = str.toLowerCase().split(' ');
   const strArrCamelCase = strArr.map((sa) => sa[0].toUpperCase() + sa.slice(1));
   return strArrCamelCase.join(' ');
