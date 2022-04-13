@@ -13,8 +13,11 @@ export const fetchDataSuccess = (data) => ({
   },
 });
 
-export const fetchDataFailure = () => ({
+export const fetchDataFailure = (err = '') => ({
   type: FETCH_DATA_FAILURE,
+  payload: {
+    err,
+  },
 });
 
 const todayDate = (new Date()).toISOString().split('T')[0];
