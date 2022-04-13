@@ -15,8 +15,18 @@ function CoutnriesList() {
 
   return (
     <>
-      {status === 'not fetched' && <div>Nothing fetched yet</div>}
-      {status === 'fetching' && <LoadingSpinner />}
+      {status !== 'fetched' && (
+        <div className="p-8 grid place-content-center">
+          {status === 'not fetched' && <>No data fetched yet!</>}
+          {status === 'fetching' && <LoadingSpinner />}
+
+          {status === 'failed' && (
+            <>Failed in fetching data!</>
+          )}
+
+        </div>
+      )}
+
       {status === 'fetched' && (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {data.map((countryData) => (

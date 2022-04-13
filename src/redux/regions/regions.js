@@ -7,9 +7,10 @@ export const fetchDataRequest = () => ({
   type: FETCH_DATA_REQUEST,
 });
 
-export const fetchDataSuccess = (data) => ({
+export const fetchDataSuccess = (meta, data) => ({
   type: FETCH_DATA_SUCCESS,
   payload: {
+    meta,
     data,
   },
 });
@@ -41,9 +42,13 @@ export const fetchAllData = (countryName) => (dispatch) => {
   fetch(API_URL)
     .then((res) => res.json())
     .then((res) => {
-      let data = [];
-      const regionsData = res.dates[todayDate].countries[camelCase(countryName)].regions;
+      const countryData = res.dates[todayDate].countries[camelCase(countryName)];
+      const meta = {
+        stat: countryData.today_new_confirmed,
+      };
 
+      let data = [];
+      const regionsData = countryData.regions;
       regionsData.forEach(({ id, name, today_new_confirmed: stat }) => {
         data.push({
           id,
@@ -54,7 +59,7 @@ export const fetchAllData = (countryName) => (dispatch) => {
 
       // sort based on stat in reverse order
       data = data.sort((a, b) => b.stat - a.stat);
-      dispatch(fetchDataSuccess(data));
+      dispatch(fetchDataSuccess(meta, data));
     })
     .catch((err) => {
       dispatch(fetchDataFailure(err));
@@ -63,6 +68,7 @@ export const fetchAllData = (countryName) => (dispatch) => {
 
 const initialState = {
   status: 'not fetched',
+  meta: { stat: -1 },
   data: [],
 };
 
@@ -71,7 +77,7 @@ export default function reducer(state = initialState, action) {
     case FETCH_DATA_REQUEST:
       return { ...state, status: 'fetching' };
     case FETCH_DATA_SUCCESS:
-      return { data: action.payload.data, status: 'fetched' };
+      return { meta: action.payload.meta, data: action.payload.data, status: 'fetched' };
     case FETCH_DATA_FAILURE:
       return { ...state, status: 'failed' };
     case RESET_STATE:
