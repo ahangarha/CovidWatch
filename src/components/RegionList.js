@@ -36,8 +36,8 @@ function RegionList({ countryName }) {
       )}
       {status === 'fetched' && (
         <ul className="flex flex-col">
-          {data.map((region) => (
-            <RegionItem key={region.id} region={region} />
+          {data.map((region, index) => (
+            <RegionItem key={region.id} region={region} index={index} />
           ))}
         </ul>
       )}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -31,8 +31,19 @@ function CountryPage() {
   countryName = countryName.replaceAll('_', ' ');
   const imageUrl = getMapUrl(countryName);
 
+  const classBefore = 'opacity-0 translate-y-8';
+  const classAfter = 'opacity-100';
+  const [classCurrect, setClassCurrent] = useState(classBefore);
+
+  useEffect(() => {
+    setClassCurrent(classAfter);
+    return () => {
+      setClassCurrent(classBefore);
+    };
+  }, []);
+
   return (
-    <main className="container mx-auto flex flex-col grow">
+    <main className={`container mx-auto flex flex-col grow transition-all duration-500 ${classCurrect}`}>
       <div className="h-48 md:h-64 grid place-content-center">
         <div className="flex items-center gap-4">
           <div
