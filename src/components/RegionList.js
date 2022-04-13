@@ -37,7 +37,7 @@ function RegionList({ countryName }) {
         <ul className="flex flex-col">
           {data.map((region) => (
             <li
-              className="flex items-center gap-3 px-2 py-4 even:bg-pink-600"
+              className="flex items-center gap-3 px-2 py-4 odd:bg-pink-600"
               key={region.id}
             >
               <p className="grow">{region.name}</p>

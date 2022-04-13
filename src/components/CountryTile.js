@@ -7,9 +7,9 @@ function CountryTile({ data }) {
   return (
     <Link
       to={`/countries/${id}`}
-      className="flex flex-col justify-end aspect-square border border-pink-600 p-2 text-right"
+      className="flex flex-col justify-end aspect-square bg-pink-600 p-2 text-right m-2"
     >
-      <h2 className="font-bold text-lg uppercase">
+      <h2 className="font-bold text-lg uppercase leading-none">
         {name}
       </h2>
       <p>{stat}</p>
