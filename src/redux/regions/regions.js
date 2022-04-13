@@ -40,7 +40,7 @@ export const fetchAllData = (countryName) => (dispatch) => {
       let data = [];
       const regionsData = res.dates[todayDate].countries[camelCase(countryName)].regions;
 
-      regionsData.forEach(({ id, name, today_new_confirmed: stat }) => {
+      regionsData.forEach(({ id, name, today_new_confirmed: stat = 0 }) => {
         data.push({
           id,
           name,
