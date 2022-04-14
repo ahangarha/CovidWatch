@@ -1,6 +1,11 @@
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import regionReducer, { fetchAllData, fetchDataFailure, fetchDataRequest, fetchDataSuccess } from './countries';
+import regionReducer, {
+  fetchAllData,
+  fetchDataFailure,
+  fetchDataRequest,
+  fetchDataSuccess,
+} from './countries';
 
 global.fetch = () => Promise.resolve({
   json: () => Promise.resolve({
