@@ -28,8 +28,8 @@ function CountryPage() {
   const { status, meta } = useSelector((state) => state.regions);
   let { countryName } = useParams();
 
-  countryName = countryName.replaceAll('_', ' ');
   const imageUrl = getMapUrl(countryName);
+  countryName = countryName.replaceAll('_', ' ');
 
   const classBefore = 'opacity-0 translate-y-8';
   const classAfter = 'opacity-100';
