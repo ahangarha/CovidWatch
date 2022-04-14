@@ -33,20 +33,19 @@ const camelCase = (str) => {
   return strArrCamelCase.join(' ');
 };
 
-export const fetchAllData = (countryName) => (dispatch) => {
-  const todayDate = (new Date()).toISOString().split('T')[0];
-  const API_URL = `https://api.covid19tracking.narrativa.com/api/${todayDate}/country/${countryName}`;
+const todayDate = (new Date()).toISOString().split('T')[0];
+
+export const fetchAllData = (countryName, date = todayDate) => (dispatch) => {
+  const API_URL = `https://api.covid19tracking.narrativa.com/api/${date}/country/${countryName}`;
 
   dispatch(fetchDataRequest());
-
-  fetch(API_URL)
+  return fetch(API_URL)
     .then((res) => res.json())
     .then((res) => {
-      const countryData = res.dates[todayDate].countries[camelCase(countryName)];
+      const countryData = res.dates[date].countries[camelCase(countryName)];
       const meta = {
         stat: countryData.today_new_confirmed,
       };
-
       let data = [];
       const regionsData = countryData.regions;
       regionsData.forEach(({ id, name, today_new_confirmed: stat }) => {
