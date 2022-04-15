@@ -13,7 +13,7 @@ An educational project to call APIs using React, Redux and Tailwindcss.
 
 ![CovidWatch Screenshot](./screenshot.png)
 
-A live demo of this project is available [on Heroku]https://covid-watch-ahangarha.herokuapp.com/).
+A live demo of this project is available [on Heroku](https://covid-watch-ahangarha.herokuapp.com/).
 
 ## Usage
 
