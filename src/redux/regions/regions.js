@@ -1,7 +1,7 @@
 const FETCH_DATA_REQUEST = 'covidWatch/regions/FETCH_DATA_REQUEST';
 const FETCH_DATA_SUCCESS = 'covidWatch/regions/FETCH_DATA_SUCCESS';
 const FETCH_DATA_FAILURE = 'covidWatch/regions/FETCH_DATA_FAILURE';
-const RESET_STATE = 'covidWatch/regions/RESET_STATE';
+const RESET_STAT = 'covidWatch/regions/RESET_STAT';
 
 export const fetchDataRequest = () => ({
   type: FETCH_DATA_REQUEST,
@@ -23,7 +23,7 @@ export const fetchDataFailure = (err = '') => ({
 });
 
 export const resetRegionsState = () => ({
-  type: RESET_STATE,
+  type: RESET_STAT,
 });
 
 const camelCase = (str) => {
@@ -33,20 +33,19 @@ const camelCase = (str) => {
   return strArrCamelCase.join(' ');
 };
 
-export const fetchAllData = (countryName) => (dispatch) => {
-  const todayDate = (new Date()).toISOString().split('T')[0];
-  const API_URL = `https://api.covid19tracking.narrativa.com/api/${todayDate}/country/${countryName}`;
+const todayDate = (new Date()).toISOString().split('T')[0];
+
+export const fetchAllData = (countryName, date = todayDate) => (dispatch) => {
+  const API_URL = `https://api.covid19tracking.narrativa.com/api/${date}/country/${countryName}`;
 
   dispatch(fetchDataRequest());
-
-  fetch(API_URL)
+  return fetch(API_URL)
     .then((res) => res.json())
     .then((res) => {
-      const countryData = res.dates[todayDate].countries[camelCase(countryName)];
+      const countryData = res.dates[date].countries[camelCase(countryName)];
       const meta = {
         stat: countryData.today_new_confirmed,
       };
-
       let data = [];
       const regionsData = countryData.regions;
       regionsData.forEach(({ id, name, today_new_confirmed: stat }) => {
@@ -80,7 +79,7 @@ export default function reducer(state = initialState, action) {
       return { meta: action.payload.meta, data: action.payload.data, status: 'fetched' };
     case FETCH_DATA_FAILURE:
       return { ...state, status: 'failed' };
-    case RESET_STATE:
+    case RESET_STAT:
       return initialState;
     default:
       return state;

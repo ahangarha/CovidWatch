@@ -21,16 +21,16 @@ export const fetchDataFailure = (err = '') => ({
 });
 
 const todayDate = (new Date()).toISOString().split('T')[0];
-const API_URL = `https://api.covid19tracking.narrativa.com/api/${todayDate}`;
 
-export const fetchAllData = () => (dispatch) => {
+export const fetchAllData = (date = todayDate) => (dispatch) => {
+  const API_URL = `https://api.covid19tracking.narrativa.com/api/${date}`;
   dispatch(fetchDataRequest());
 
-  fetch(API_URL)
+  return fetch(API_URL)
     .then((res) => res.json())
     .then((res) => {
       let data = [];
-      const countriesData = res.dates[todayDate].countries;
+      const countriesData = res.dates[date].countries;
 
       Object.keys(countriesData).forEach((country) => {
         data.push({

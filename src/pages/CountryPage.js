@@ -64,9 +64,9 @@ function CountryPage() {
               <br />
               of today:
             </p>
-            <p className="text-xl font-bold">
+            <div className="text-xl font-bold">
               <TotalStat status={status} meta={meta} />
-            </p>
+            </div>
           </div>
         </div>
       </div>
