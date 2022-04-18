@@ -7,6 +7,11 @@ function AllCountries() {
   const classBefore = 'opacity-0 translate-y-8';
   const classAfter = 'opacity-100';
   const [classCurrect, setClassCurrent] = useState(classBefore);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const updateSearchTerm = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   useEffect(() => {
     setClassCurrent(classAfter);
@@ -27,18 +32,29 @@ function AllCountries() {
             backgroundPosition: 'center',
           }}
         />
-        <h2 className="z-10 text-center text-3xl">
-          Daily statistics of confirmed
-          <br />
-          Covid-19 cases
-        </h2>
-        <p className="text-xs inline-block bg-black/10 font-bold">
-          Source: John Hopkins University
-        </p>
+        <div className="z-10 flex flex-col gap-2">
+          <h2 className="text-center text-3xl">
+            Daily statistics of confirmed
+            <br />
+            Covid-19 cases
+          </h2>
+          <p className="text-xs inline-block bg-black/10 font-bold">
+            Source: John Hopkins University
+          </p>
+
+          <input
+            type="text"
+            name="search"
+            value={searchTerm}
+            onChange={updateSearchTerm}
+            className="p-2 pb-1 placeholder:text-white/50 text-center leading-none border bg-transparent rounded-xl uppercase"
+            placeholder="Filter Countries"
+          />
+        </div>
       </div>
       <div className="bg-pink-500 grow rounded-3xl border border-pink-600">
         <div className="p-2 text-center uppercase font-bold">Stat by countries</div>
-        <CountriesList />
+        <CountriesList searchTerm={searchTerm} />
         <div className="h-4" />
       </div>
     </main>
