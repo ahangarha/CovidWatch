@@ -7,7 +7,6 @@
   "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
@@ -51,6 +50,7 @@
     "@babel/plugin-syntax-jsx": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
+    "@testing-library/react": "^13.1.1",
     "autoprefixer": "^10.4.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
