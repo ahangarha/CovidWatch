@@ -29,7 +29,7 @@ function CountryPage() {
   let { countryName } = useParams();
 
   const imageUrl = getMapUrl(countryName);
-  countryName = countryName.replaceAll('_', ' ');
+  countryName = countryName.replace(/_/g, ' ');
 
   const classBefore = 'opacity-0 translate-y-8';
   const classAfter = 'opacity-100';
