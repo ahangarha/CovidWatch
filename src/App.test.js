@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, waitFor, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/configuteStore';
@@ -71,4 +71,18 @@ describe('interaction test', () => {
     expect(countryPageTitle).toBeInTheDocument();
     expect(franceTile).toBeInTheDocument();
   });
+
+  it('shows detail page by clicking on a tile', async () => {
+    render(<MockedApp />);
+
+    const countryPageTitle = screen.getByText('Stat by countries');
+    const franceTile = screen.getByRole('link', { name: /france/i });
+
+    fireEvent.click(franceTile);
+
+    const confirmedText = await waitFor(() => screen.getByText(/Martinique/i));
+
+    expect(confirmedText).toBeInTheDocument();
+  });
+  
 });
