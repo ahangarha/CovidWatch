@@ -1,4 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  act,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/configuteStore';
@@ -53,19 +59,34 @@ const MockedApp = () => (
   </Provider>
 );
 
-it('renders site title', () => {
+it('renders site title', async () => {
   render(<MockedApp />);
+
   const siteTitle = screen.getByText(/Covid Watch/i);
   expect(siteTitle).toBeInTheDocument();
+  await act(() => Promise.resolve);
 });
 
 describe('interaction test', () => {
   it('shows countries list by default', () => {
     render(<MockedApp />);
+
     const countryPageTitle = screen.getByText('Stat by countries');
     const franceTile = screen.getByRole('link', { name: /france/i });
 
     expect(countryPageTitle).toBeInTheDocument();
     expect(franceTile).toBeInTheDocument();
+  });
+
+  it('shows detail page by clicking on a tile', async () => {
+    render(<MockedApp />);
+
+    const franceTile = screen.getByRole('link', { name: /france/i });
+
+    fireEvent.click(franceTile);
+
+    const confirmedText = await waitFor(() => screen.getByText(/Martinique/i));
+
+    expect(confirmedText).toBeInTheDocument();
   });
 });
